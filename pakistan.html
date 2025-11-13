@@ -3,73 +3,276 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<title>Pakistan</title>
+	<title>Pakistan - Land of the Pure</title>
 	<style>
 		*{box-sizing:border-box}
-		:root{--green:#01411C}
-		html,body{height:100%;margin:0;padding:0}
-		.flag-wrap{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--green)}
+		:root{--green:#01411C;--white:#fff;--gold:#D4AF37}
+		html,body{margin:0;padding:0;font-family:Segoe UI, Roboto, Arial, sans-serif}
+		
+		/* Hero Section */
+		.hero{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--green)}
 		.flag-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-		.content{position:relative;z-index:2;color:#fff;font-family:Segoe UI, Roboto, Arial, sans-serif;text-shadow:0 6px 18px rgba(0,0,0,0.45);text-align:center;padding:2rem;max-width:90vw}
+		.hero-content{position:relative;z-index:2;color:var(--white);text-shadow:0 6px 18px rgba(0,0,0,0.45);text-align:center;padding:2rem;max-width:90vw}
+		.quaid-pic{width:clamp(80px, 20vw, 150px);height:auto;border-radius:50%;border:4px solid var(--white);margin-bottom:2rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);animation:slideIn 0.8s ease-out;object-fit:cover;aspect-ratio:1}
 		.heading{font-size:clamp(2rem, 8vw, 10vw);font-weight:700;letter-spacing:0.05em;margin:0;animation:slideIn 0.8s ease-out}
-		.quaid-pic{width:clamp(80px, 20vw, 150px);height:auto;border-radius:50%;border:4px solid #fff;margin-bottom:2rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);animation:slideIn 0.8s ease-out;object-fit:cover;aspect-ratio:1}
 		.tagline{font-size:clamp(1rem, 2.5vw, 1.5rem);margin-top:1rem;font-weight:300;letter-spacing:0.15em;opacity:0.95;animation:fadeIn 1s ease-out 0.3s both}
-		.facts{margin-top:2rem;font-size:clamp(0.875rem, 1.5vw, 1rem);line-height:1.8;opacity:0.85;animation:fadeIn 1s ease-out 0.6s both;display:flex;flex-direction:column;gap:0.5rem}
-		.credit{position:fixed;right:12px;bottom:12px;color:rgba(255,255,255,0.8);font-size:clamp(11px, 1.2vw, 12px);z-index:3}
+		.quick-facts{margin-top:2rem;font-size:clamp(0.875rem, 1.5vw, 1rem);line-height:1.8;opacity:0.85;animation:fadeIn 1s ease-out 0.6s both;display:flex;flex-direction:column;gap:0.5rem}
+		
+		/* Main Content Sections */
+		.container{max-width:1200px;margin:0 auto;padding:0 1rem}
+		section{padding:3rem 0;scroll-margin-top:60px}
+		h2{font-size:clamp(1.75rem, 4vw, 2.5rem);color:var(--green);border-bottom:3px solid var(--gold);padding-bottom:1rem;margin-bottom:2rem}
+		h3{font-size:clamp(1.25rem, 2.5vw, 1.5rem);color:var(--green);margin-top:1.5rem}
+		
+		/* Info Grid */
+		.info-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:2rem;margin-bottom:2rem}
+		.info-card{background:var(--green);color:var(--white);padding:1.5rem;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);transition:transform 0.3s, box-shadow 0.3s}
+		.info-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+		.info-card strong{color:var(--gold);display:block;margin-bottom:0.5rem}
+		
+		/* Provinces Grid */
+		.provinces-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:2rem}
+		.province{background:linear-gradient(135deg, #01411C 0%, #02521b 100%);color:var(--white);padding:2rem;border-radius:8px;border-left:4px solid var(--gold);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+		.province h4{margin:0 0 1rem 0;color:var(--gold);font-size:1.3rem}
+		.province p{margin:0.5rem 0;line-height:1.6;font-size:0.95rem}
+		
+		/* Navigation */
+		nav{position:sticky;top:0;background:var(--green);padding:1rem 0;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:100}
+		nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;max-width:1200px;margin:0 auto}
+		nav a{color:var(--white);text-decoration:none;font-size:clamp(0.8rem, 1.2vw, 1rem);padding:0.5rem 1rem;transition:color 0.3s}
+		nav a:hover{color:var(--gold)}
+		
+		/* Text Styles */
+		p{line-height:1.8;color:#333;font-size:clamp(0.9rem, 1.5vw, 1rem)}
+		ul{line-height:2;color:#333}
+		li{margin-bottom:0.5rem}
+		
+		/* Footer */
+		footer{background:var(--green);color:var(--white);text-align:center;padding:2rem;margin-top:3rem}
+		
+		/* Animations */
 		@keyframes slideIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 		@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-		/* Tablet (768px and up) */
+		
+		/* Responsive */
 		@media (min-width:768px){
-			.content{padding:3rem}
-			.heading{margin:0.5rem 0}
-			.tagline{margin-top:1.5rem}
-			.facts{margin-top:2.5rem;gap:0.75rem}
+			.hero-content{padding:3rem}
+			.quick-facts{margin-top:2.5rem;gap:0.75rem}
 		}
-
-		/* Desktop (1024px and up) */
 		@media (min-width:1024px){
-			.content{padding:4rem}
-			.heading{margin:1rem 0}
-			.tagline{margin-top:2rem}
-			.facts{margin-top:3rem;gap:1rem}
-		}
-
-		/* Large screens (1440px and up) */
-		@media (min-width:1440px){
-			.content{padding:5rem;max-width:85vw}
+			.hero-content{padding:4rem}
+			.quick-facts{margin-top:3rem;gap:1rem}
+			nav ul{padding:0 2rem}
 		}
 	</style>
 </head>
 <body>
-	<div class="flag-wrap">
+	<!-- Hero Section -->
+	<div class="hero">
 		<svg class="flag-svg" viewBox="0 0 36 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flag of Pakistan">
-			<!-- green field -->
 			<rect width="36" height="24" fill="#01411C"/>
-			<!-- white vertical stripe (hoist) about 1/4 -->
 			<rect width="9" height="24" x="0" y="0" fill="#fff"/>
-			<!-- crescent: white circle minus overlapping green circle -->
 			<g transform="translate(17,12)">
 				<circle r="4.5" cx="0" cy="0" fill="#fff"/>
 				<circle r="3.4" cx="1.2" cy="0" fill="#01411C"/>
 			</g>
-			<!-- star: 5-point star to the right of crescent -->
 			<g transform="translate(22.4,11.2) scale(0.9)" fill="#fff">
 				<polygon points="0,-2.6 0.75,-0.5 2.6,-0.5 1.15,0.4 1.6,2.5 0,1.1 -1.6,2.5 -1.15,0.4 -2.6,-0.5 -0.75,-0.5"/>
 			</g>
 		</svg>
-
-		<div class="content">
+		<div class="hero-content">
 			<img class="quaid-pic" src="https://pid.gov.pk/pid_beta/admin/uploads/profile/1.jpg" alt="Quaid-e-Azam Muhammad Ali Jinnah">
 			<h1 class="heading">Pakistan</h1>
 			<p class="tagline">🌙 Land of the Pure 🌙</p>
-			<div class="facts">
-				<div>Capital: Islamabad</div>
-				<div>Population: 230+ Million</div>
-				<div>Official Language: Urdu</div>
+			<div class="quick-facts">
+				<div><strong>Capital:</strong> Islamabad</div>
+				<div><strong>Population:</strong> 230+ Million</div>
+				<div><strong>Official Language:</strong> Urdu</div>
+				<div><strong>Area:</strong> 796,095 km²</div>
+				<div><strong>Independence:</strong> 14 August 1947</div>
 			</div>
 		</div>
-		<div class="credit">Hanif_Khan</div>
 	</div>
+
+	<!-- Navigation -->
+	<nav>
+		<ul>
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#provinces">Provinces</a></li>
+			<li><a href="#geography">Geography</a></li>
+			<li><a href="#culture">Culture</a></li>
+			<li><a href="#economy">Economy</a></li>
+		</ul>
+	</nav>
+
+	<!-- Overview Section -->
+	<section id="overview" class="container">
+		<h2>Overview</h2>
+		<p>The Islamic Republic of Pakistan is a country in South Asia, founded on August 14, 1947. Named after the concept "Pak-stan" (land of the pure), it was created as a homeland for Muslims of the Indian subcontinent. Pakistan is the world's fifth-most populous country and the second-largest Muslim-majority nation.</p>
+		
+		<div class="info-grid">
+			<div class="info-card">
+				<strong>🏛️ Government</strong>
+				Federal Parliamentary System with bicameral legislature
+			</div>
+			<div class="info-card">
+				<strong>💷 Currency</strong>
+				Pakistani Rupee (PKR)
+			</div>
+			<div class="info-card">
+				<strong>🗣️ Languages</strong>
+				Urdu, English, Punjabi, Sindhi, Pashto
+			</div>
+			<div class="info-card">
+				<strong>📍 Bordering Countries</strong>
+				Afghanistan, Iran, China, India
+			</div>
+		</div>
+	</section>
+
+	<!-- Provinces Section -->
+	<section id="provinces" class="container">
+		<h2>Provinces & Territories</h2>
+		<p>Pakistan is divided into four provinces and three territories, each with unique culture, geography, and significance.</p>
+		
+		<div class="provinces-grid">
+			<div class="province">
+				<h4>🏞️ Punjab</h4>
+				<p><strong>Capital:</strong> Lahore</p>
+				<p><strong>Area:</strong> 205,344 km²</p>
+				<p><strong>Population:</strong> ~125 Million</p>
+				<p>The most populous province, known for its fertile plains, agricultural wealth, and cultural heritage. Home to the ancient Indus Valley Civilization sites and famous for Mughal architecture.</p>
+			</div>
+			
+			<div class="province">
+				<h4>🏜️ Sindh</h4>
+				<p><strong>Capital:</strong> Karachi</p>
+				<p><strong>Area:</strong> 140,914 km²</p>
+				<p><strong>Population:</strong> ~55 Million</p>
+				<p>Located along the Indus River, Sindh is Pakistan's economic hub. Karachi is the largest city and main port. Rich in Sufi culture and ancient Buddhist heritage.</p>
+			</div>
+			
+			<div class="province">
+				<h4>⛰️ Khyber Pakhtunkhwa</h4>
+				<p><strong>Capital:</strong> Peshawar</p>
+				<p><strong>Area:</strong> 101,740 km²</p>
+				<p><strong>Population:</strong> ~40 Million</p>
+				<p>Located in the northwest, bordered by Afghanistan. Known for rugged mountains, Pashto culture, and the famous Khyber Pass. Gateway to Central Asia.</p>
+			</div>
+			
+			<div class="province">
+				<h4>🏔️ Balochistan</h4>
+				<p><strong>Capital:</strong> Quetta</p>
+				<p><strong>Area:</strong> 347,190 km²</p>
+				<p><strong>Population:</strong> ~13 Million</p>
+				<p>Pakistan's largest province by area but least populated. Known for desert landscapes, mining resources, and unique Baloch tribal culture.</p>
+			</div>
+			
+			<div class="province">
+				<h4>🏛️ Gilgit-Baltistan</h4>
+				<p><strong>Capital:</strong> Gilgit</p>
+				<p><strong>Area:</strong> 72,520 km²</p>
+				<p>A federal territory with stunning mountain scenery, including parts of the Karakoram and Hindu Kush ranges. Popular for trekking and mountaineering.</p>
+			</div>
+			
+			<div class="province">
+				<h4>🏙️ Islamabad (Federal Capital Territory)</h4>
+				<p><strong>Area:</strong> 906 km²</p>
+				<p><strong>Population:</strong> ~2.2 Million</p>
+				<p>Planned capital city built in 1960s, located between the Pothohar Plateau and Margalla Hills. Known for modern architecture and green spaces.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Geography Section -->
+	<section id="geography" class="container">
+		<h2>Geography</h2>
+		
+		<h3>Mountain Ranges</h3>
+		<ul>
+			<li><strong>Karakoram Range:</strong> Includes K2, the second-highest mountain in the world (8,611 m)</li>
+			<li><strong>Hindu Kush:</strong> Major mountain range in the north</li>
+			<li><strong>Himalayas:</strong> Northeast portion with peaks over 7,000 meters</li>
+			<li><strong>Sulaiman Range:</strong> Western mountain system</li>
+		</ul>
+		
+		<h3>Major Rivers</h3>
+		<ul>
+			<li><strong>Indus River:</strong> Main river, 2,900 km long, crucial for irrigation and economy</li>
+			<li><strong>Sutlej, Chenab, Ravi, Beas:</strong> Tributaries in Punjab</li>
+			<li><strong>Baloch and Makran:</strong> Coastal regions</li>
+		</ul>
+		
+		<h3>Climate Zones</h3>
+		<ul>
+			<li>Alpine and tundra in the north</li>
+			<li>Temperate in mountainous regions</li>
+			<li>Arid and semi-arid in the south and interior</li>
+			<li>Tropical in coastal areas</li>
+		</ul>
+	</section>
+
+	<!-- Culture Section -->
+	<section id="culture" class="container">
+		<h2>Culture & Heritage</h2>
+		
+		<h3>🎭 Traditional Arts</h3>
+		<ul>
+			<li><strong>Music:</strong> Qawwali, Ghazal, Classical music traditions</li>
+			<li><strong>Dance:</strong> Kathak, Mohiniattam, regional folk dances</li>
+			<li><strong>Crafts:</strong> Pottery, carpet weaving, woodwork, calligraphy</li>
+		</ul>
+		
+		<h3>🍲 Cuisine</h3>
+		<ul>
+			<li><strong>National Dish:</strong> Biryani - fragrant rice dish with meat</li>
+			<li><strong>Popular Foods:</strong> Karahi, Haleem, Samosas, Chapli Kebab, Nihari</li>
+			<li><strong>Sweets:</strong> Gulab Jamun, Kheer, Barfi, Jalebi</li>
+		</ul>
+		
+		<h3>🎪 Festivals</h3>
+		<ul>
+			<li><strong>Eid ul-Fitr & Eid ul-Adha:</strong> Major Islamic celebrations</li>
+			<li><strong>Ashura (Muharram):</strong> Religious observance with mourning processions</li>
+			<li><strong>Pakistan Day (23 March):</strong> Celebrates the Lahore Resolution</li>
+			<li><strong>Independence Day (14 August):</strong> National celebration</li>
+		</ul>
+		
+		<h3>🏛️ UNESCO World Heritage Sites</h3>
+		<ul>
+			<li>Mohenjo-daro - Ancient Indus Valley Civilization city</li>
+			<li>Taxila - Historic Buddhist university and ruins</li>
+			<li>Historic Monuments at Makli - Massive necropolis</li>
+			<li>Badshahi Mosque & Lahore Fort - Mughal architecture</li>
+			<li>Hunza Valley & Baltit Fort - Northern cultural heritage</li>
+		</ul>
+	</section>
+
+	<!-- Economy Section -->
+	<section id="economy" class="container">
+		<h2>Economy</h2>
+		
+		<h3>Major Industries</h3>
+		<ul>
+			<li><strong>Agriculture:</strong> Cotton, wheat, rice, sugarcane, fruits</li>
+			<li><strong>Textiles:</strong> One of the world's largest textile exporters</li>
+			<li><strong>Manufacturing:</strong> Cement, fertilizers, steel, automotive</li>
+			<li><strong>Services:</strong> IT, telecommunications, finance, retail</li>
+		</ul>
+		
+		<h3>Key Facts</h3>
+		<ul>
+			<li>GDP: ~$477 billion (2023)</li>
+			<li>GDP per capita: ~$2,080</li>
+			<li>Major Trading Partners: China, USA, Saudi Arabia, UAE, Germany</li>
+			<li>China-Pakistan Economic Corridor (CPEC): Major infrastructure initiative</li>
+		</ul>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<p>&copy; 2024 Pakistan Information Portal | Created by Hanif_Khan</p>
+		<p>🌙 Land of the Pure - Proud to be Pakistani 🌙</p>
+	</footer>
 </body>
 </html>
