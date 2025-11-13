@@ -4,84 +4,167 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>Pakistan - Land of the Pure</title>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&family=Raleway:wght@300;400;500;700&family=DM+Sans:wght@400;500;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
 	<style>
 		*{box-sizing:border-box}
-		:root{--green:#01411C;--white:#fff;--gold:#D4AF37}
-		html,body{margin:0;padding:0;font-family:Segoe UI, Roboto, Arial, sans-serif}
+		:root{--green:#01411C;--white:#fff;--gold:#D4AF37;--dark-green:#000f0a;--light-text:#f0f0f0}
+		html,body{margin:0;padding:0;font-family:'DM Sans', sans-serif;overflow-x:hidden;background:#fafafa}
+		html{scroll-behavior:smooth}
 		
-		/* Hero Section */
-		.hero{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--green)}
-		.flag-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-		.hero-content{position:relative;z-index:2;color:var(--white);text-shadow:0 6px 18px rgba(0,0,0,0.45);text-align:center;padding:2rem;max-width:90vw}
-		.quaid-pic{width:clamp(80px, 20vw, 150px);height:auto;border-radius:50%;border:4px solid var(--white);margin-bottom:2rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);animation:slideIn 0.8s ease-out;object-fit:cover;aspect-ratio:1}
-		.heading{font-size:clamp(2rem, 8vw, 10vw);font-weight:700;letter-spacing:0.05em;margin:0;animation:slideIn 0.8s ease-out}
-		.tagline{font-size:clamp(1rem, 2.5vw, 1.5rem);margin-top:1rem;font-weight:300;letter-spacing:0.15em;opacity:0.95;animation:fadeIn 1s ease-out 0.3s both}
-		.quick-facts{margin-top:2rem;font-size:clamp(0.875rem, 1.5vw, 1rem);line-height:1.8;opacity:0.85;animation:fadeIn 1s ease-out 0.6s both;display:flex;flex-direction:column;gap:0.5rem}
-		
-		/* Main Content Sections */
-		.container{max-width:1200px;margin:0 auto;padding:0 1rem}
-		section{padding:3rem 0;scroll-margin-top:60px}
-		h2{font-size:clamp(1.75rem, 4vw, 2.5rem);color:var(--green);border-bottom:3px solid var(--gold);padding-bottom:1rem;margin-bottom:2rem}
-		h3{font-size:clamp(1.25rem, 2.5vw, 1.5rem);color:var(--green);margin-top:1.5rem}
-		
-		/* Info Grid */
-		.info-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:2rem;margin-bottom:2rem}
-		.info-card{background:var(--green);color:var(--white);padding:1.5rem;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);transition:transform 0.3s, box-shadow 0.3s}
-		.info-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
-		.info-card strong{color:var(--gold);display:block;margin-bottom:0.5rem}
-		
-		/* Provinces Grid */
-		.provinces-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:2rem}
-		.province{background:linear-gradient(135deg, #01411C 0%, #02521b 100%);color:var(--white);padding:2rem;border-radius:8px;border-left:4px solid var(--gold);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
-		.province h4{margin:0 0 1rem 0;color:var(--gold);font-size:1.3rem}
-		.province p{margin:0.5rem 0;line-height:1.6;font-size:0.95rem}
+		/* Hero Section - Fixed Layout */
+		.hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, var(--green) 0%, var(--dark-green) 100%);padding:3rem 1rem;overflow:hidden}
+		.hero::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24"><rect width="36" height="24" fill="%2301411C"/><rect width="9" height="24" x="0" y="0" fill="%23fff"/><g transform="translate(17,12)"><circle r="4.5" cx="0" cy="0" fill="%23fff"/><circle r="3.4" cx="1.2" cy="0" fill="%2301411C"/></g><g transform="translate(22.4,11.2) scale(0.9)" fill="%23fff"><polygon points="0,-2.6 0.75,-0.5 2.6,-0.5 1.15,0.4 1.6,2.5 0,1.1 -1.6,2.5 -1.15,0.4 -2.6,-0.5 -0.75,-0.5"/></g></svg>') repeat;opacity:0.08;animation:flagGlow 8s ease-in-out infinite;pointer-events:none}
+		.hero-content{position:relative;z-index:2;color:var(--white);text-align:center;max-width:800px;width:100%;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+		.quaid-pic{width:clamp(100px, 25vw, 200px);height:clamp(100px, 25vw, 200px);border-radius:50%;border:6px solid var(--gold);box-shadow:0 0 50px rgba(212,175,55,0.8), 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(212,175,55,0.3);animation:floatInRotate 1.3s cubic-bezier(0.34, 1.56, 0.64, 1);object-fit:cover;aspect-ratio:1;transition:transform 0.3s ease;flex-shrink:0}
+		.quaid-pic:hover{transform:scale(1.08) drop-shadow(0 10px 30px rgba(212,175,55,0.6))}
+		.heading{font-family:'Playfair Display', serif;font-size:clamp(2.8rem, 11vw, 5.5rem);font-weight:900;letter-spacing:0.06em;margin:0;animation:glowingText 1.5s ease-out;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.4);filter:drop-shadow(0 4px 8px rgba(212,175,55,0.3))}
+		.tagline{font-family:'Lora', serif;font-size:clamp(1.1rem, 2.5vw, 1.6rem);margin:0;font-weight:400;letter-spacing:0.15em;opacity:0.95;animation:fadeInUp 1.2s ease-out 0.2s both;color:var(--gold);font-style:italic}
+		.quick-facts{margin:0;font-size:clamp(0.9rem, 1.2vw, 1.05rem);line-height:1.9;opacity:0.92;animation:fadeInUp 1.2s ease-out 0.4s both;display:flex;flex-direction:column;gap:0.6rem;font-weight:300;color:var(--light-text)}
+		.quick-facts div{transition:all 0.3s ease;padding:0.4rem 0;letter-spacing:0.5px}
+		.quick-facts div strong{font-weight:600;color:var(--gold);letter-spacing:0.8px}
+		.quick-facts div:hover{transform:translateX(12px);color:var(--gold);text-shadow:0 0 10px rgba(212,175,55,0.5)}
 		
 		/* Navigation */
-		nav{position:sticky;top:0;background:var(--green);padding:1rem 0;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:100}
-		nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;max-width:1200px;margin:0 auto}
-		nav a{color:var(--white);text-decoration:none;font-size:clamp(0.8rem, 1.2vw, 1rem);padding:0.5rem 1rem;transition:color 0.3s}
-		nav a:hover{color:var(--gold)}
+		nav{position:sticky;top:0;background:linear-gradient(135deg, rgba(1,65,28,0.98) 0%, rgba(0,15,10,0.98) 100%);backdrop-filter:blur(10px);padding:1rem 0;box-shadow:0 4px 20px rgba(0,0,0,0.4);z-index:100;animation:slideDown 0.6s ease-out;border-bottom:2px solid rgba(212,175,55,0.3)}
+		nav ul{list-style:none;margin:0;padding:0;display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;max-width:1200px;margin:0 auto}
+		nav li{display:flex}
+		nav a{color:var(--light-text);text-decoration:none;font-size:clamp(0.8rem, 1.1vw, 1rem);padding:0.7rem 1.3rem;transition:all 0.3s ease;position:relative;font-weight:500;font-family:'Montserrat', sans-serif;letter-spacing:0.5px}
+		nav a::before{content:'';position:absolute;bottom:-2px;left:0;width:0;height:3px;background:linear-gradient(90deg, var(--gold), transparent);transition:width 0.4s ease}
+		nav a:hover::before{width:100%}
+		nav a:hover{color:var(--gold);transform:translateY(-2px)}
+		
+		/* Main Content Sections */
+		.container{max-width:1250px;margin:0 auto;padding:0 1rem;animation:containerFadeIn 0.8s ease-out}
+		section{padding:3.5rem 1rem;scroll-margin-top:100px;animation:sectionSlideIn 0.8s ease-out;background:linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0))}
+		h2{font-family:'Playfair Display', serif;font-size:clamp(1.8rem, 4vw, 3rem);color:var(--green);border-bottom:4px solid var(--gold);padding-bottom:1.2rem;margin-bottom:2.5rem;position:relative;transition:all 0.3s ease;font-weight:900;letter-spacing:0.04em}
+		h2::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:4px;background:linear-gradient(90deg, var(--gold), transparent);animation:expandWidth 0.9s ease-out forwards}
+		h3{font-family:'Raleway', sans-serif;font-size:clamp(1.2rem, 2.3vw, 1.7rem);color:var(--green);margin-top:1.8rem;font-weight:700;transition:all 0.3s ease;letter-spacing:0.3px}
+		h3:hover{color:var(--gold);transform:translateX(5px)}
+		
+		/* Info Grid */
+		.info-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:2rem;margin-bottom:2.5rem}
+		.info-card{background:linear-gradient(135deg, rgba(1,65,28,0.95) 0%, rgba(2,82,27,0.95) 100%);color:var(--light-text);padding:2rem;border-radius:16px;border:2px solid transparent;background-clip:padding-box;box-shadow:0 10px 30px rgba(0,0,0,0.15);transition:all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);cursor:pointer;animation:cardAppear 0.7s ease-out backwards;position:relative;overflow:hidden}
+		.info-card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg, transparent, rgba(212,175,55,0.25), transparent);animation:shimmer 4s infinite}
+		@keyframes shimmer{0%{left:-100%} 100%{left:100%}}
+		.info-card:nth-child(1){animation-delay:0.1s}
+		.info-card:nth-child(2){animation-delay:0.2s}
+		.info-card:nth-child(3){animation-delay:0.3s}
+		.info-card:nth-child(4){animation-delay:0.4s}
+		.info-card:hover{transform:translateY(-18px) scale(1.06);background:linear-gradient(135deg, var(--gold) 0%, #E6B800 100%);color:var(--green);box-shadow:0 18px 45px rgba(212,175,55,0.45)}
+		.info-card strong{color:var(--gold);display:block;margin-bottom:0.8rem;font-weight:700;font-size:1.15rem;letter-spacing:0.5px}
+		.info-card:hover strong{color:var(--green)}
+		.info-card p{margin:0;line-height:1.7;font-weight:300;letter-spacing:0.3px}
+		
+		/* Provinces Grid */
+		.provinces-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:2.2rem;padding:1rem 0}
+		.province{background:linear-gradient(135deg, rgba(1,65,28,0.96) 0%, rgba(2,82,27,0.96) 100%);color:var(--light-text);padding:2.2rem;border-radius:16px;border-left:6px solid var(--gold);box-shadow:0 10px 35px rgba(0,0,0,0.2);transition:all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);animation:provinceSlide 0.8s ease-out backwards;cursor:pointer;position:relative;overflow:hidden;border:1px solid rgba(212,175,55,0.2)}
+		.province::before{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);transition:top 0.5s ease}
+		.province:hover::before{top:0}
+		.province:nth-child(1){animation-delay:0.1s}
+		.province:nth-child(2){animation-delay:0.2s}
+		.province:nth-child(3){animation-delay:0.3s}
+		.province:nth-child(4){animation-delay:0.4s}
+		.province:nth-child(5){animation-delay:0.5s}
+		.province:nth-child(6){animation-delay:0.6s}
+		.province:hover{transform:translateY(-22px) rotateX(4deg);box-shadow:0 22px 55px rgba(212,175,55,0.35),0 0 35px rgba(212,175,55,0.2)}
+		.province h4{margin:0 0 1.2rem 0;color:var(--gold);font-size:clamp(1.2rem, 2.1vw, 1.5rem);font-weight:700;transition:all 0.3s ease;letter-spacing:0.4px}
+		.province:hover h4{color:#FFD700;text-shadow:0 0 15px rgba(255,215,0,0.6);transform:scale(1.05)}
+		.province p{margin:0.7rem 0;line-height:1.7;font-size:clamp(0.9rem, 1.1vw, 1rem);opacity:0.96;transition:all 0.3s ease;font-weight:300;letter-spacing:0.3px}
+		.province p strong{color:var(--gold);font-weight:600}
+		.province:hover p{opacity:1;color:var(--light-text)}
 		
 		/* Text Styles */
-		p{line-height:1.8;color:#333;font-size:clamp(0.9rem, 1.5vw, 1rem)}
-		ul{line-height:2;color:#333}
-		li{margin-bottom:0.5rem}
+		p{line-height:1.85;color:#2c2c2c;font-size:clamp(0.9rem, 1.4vw, 1.05rem);transition:color 0.3s ease;font-weight:300;letter-spacing:0.3px}
+		ul{line-height:2.1;color:#2c2c2c;margin:1.3rem 0;list-style-position:inside}
+		li{margin-bottom:0.95rem;transition:all 0.3s ease;font-weight:300;letter-spacing:0.3px}
+		li:hover{transform:translateX(10px);color:var(--green);font-weight:400}
+		strong{font-weight:600;color:#1a1a1a}
 		
 		/* Footer */
-		footer{background:var(--green);color:var(--white);text-align:center;padding:2rem;margin-top:3rem}
+		footer{background:linear-gradient(135deg, var(--green) 0%, var(--dark-green) 100%);color:var(--light-text);text-align:center;padding:3rem 1rem;margin-top:4rem;border-top:4px solid var(--gold)}
+		footer p{color:var(--light-text);margin:1rem 0;font-size:clamp(0.9rem, 1.3vw, 1.05rem);font-weight:300;letter-spacing:0.5px}
 		
-		/* Animations */
-		@keyframes slideIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-		@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+		/* Magical Animations */
+		@keyframes floatInRotate{0%{opacity:0;transform:scale(0) rotateZ(-200deg);filter:blur(15px)} 100%{opacity:1;transform:scale(1) rotateZ(0deg);filter:blur(0)}}
+		@keyframes glowingText{0%{opacity:0;transform:translateY(-40px);filter:blur(12px)} 100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+		@keyframes fadeInUp{0%{opacity:0;transform:translateY(25px)} 100%{opacity:1;transform:translateY(0)}}
+		@keyframes slideDown{0%{opacity:0;transform:translateY(-40px)} 100%{opacity:1;transform:translateY(0)}}
+		@keyframes containerFadeIn{0%{opacity:0} 100%{opacity:1}}
+		@keyframes sectionSlideIn{0%{opacity:0;transform:translateY(40px)} 100%{opacity:1;transform:translateY(0)}}
+		@keyframes cardAppear{0%{opacity:0;transform:translateY(35px) scale(0.85)} 100%{opacity:1;transform:translateY(0) scale(1)}}
+		@keyframes provinceSlide{0%{opacity:0;transform:translateX(-50px)} 100%{opacity:1;transform:translateX(0)}}
+		@keyframes expandWidth{0%{width:0} 100%{width:100%}}
+		@keyframes flagGlow{0%{filter:brightness(0.8)} 50%{filter:brightness(1.1)} 100%{filter:brightness(0.8)}}
 		
-		/* Responsive */
-		@media (min-width:768px){
-			.hero-content{padding:3rem}
-			.quick-facts{margin-top:2.5rem;gap:0.75rem}
+		/* Mobile Responsive (max 480px) */
+		@media (max-width:480px){
+			.hero{min-height:auto;padding:2rem 1rem;gap:1.2rem}
+			.hero-content{gap:1rem}
+			.quaid-pic{width:clamp(90px, 30vw, 150px);height:clamp(90px, 30vw, 150px)}
+			.heading{font-size:clamp(2.2rem, 10vw, 3.5rem)}
+			.tagline{font-size:clamp(0.95rem, 2.2vw, 1.3rem)}
+			.quick-facts{font-size:clamp(0.8rem, 1.1vw, 0.95rem);gap:0.4rem}
+			section{padding:2rem 1rem}
+			nav a{padding:0.5rem 0.9rem;font-size:0.8rem}
+			nav ul{gap:0.4rem}
+			h2{font-size:1.6rem;margin-bottom:1.5rem;padding-bottom:0.8rem}
+			h3{font-size:1.1rem;margin-top:1.3rem}
+			.info-grid{grid-template-columns:1fr;gap:1.2rem}
+			.provinces-grid{grid-template-columns:1fr;gap:1.3rem}
+			.info-card{padding:1.5rem}
+			.province{padding:1.8rem}
+			p{font-size:0.9rem}
 		}
-		@media (min-width:1024px){
-			.hero-content{padding:4rem}
-			.quick-facts{margin-top:3rem;gap:1rem}
-			nav ul{padding:0 2rem}
+		
+		/* Tablet (481px to 768px) */
+		@media (min-width:481px) and (max-width:768px){
+			.hero{padding:2.5rem 1rem}
+			.hero-content{gap:1.3rem}
+			.quaid-pic{width:clamp(110px, 22vw, 170px);height:clamp(110px, 22vw, 170px)}
+			.heading{font-size:clamp(2.4rem, 8vw, 4rem)}
+			.quick-facts{margin:0;gap:0.55rem;font-size:clamp(0.9rem, 1.2vw, 1rem)}
+			section{padding:2.5rem 1rem}
+			nav a{padding:0.55rem 1rem;font-size:0.9rem}
+			h2{font-size:2rem}
+			h3{font-size:1.25rem}
+			.info-grid{grid-template-columns:repeat(2, 1fr);gap:1.8rem}
+			.provinces-grid{grid-template-columns:repeat(2, 1fr);gap:1.8rem}
+			.info-card{padding:1.8rem}
+			.province{padding:2rem}
+		}
+		
+		/* Desktop (769px to 1439px) */
+		@media (min-width:769px) and (max-width:1439px){
+			.hero{padding:3rem 1rem}
+			.hero-content{gap:1.5rem}
+			.quaid-pic{width:clamp(140px, 20vw, 180px);height:clamp(140px, 20vw, 180px)}
+			section{padding:3rem 0}
+			nav ul{padding:0 1.5rem}
+			.info-grid{grid-template-columns:repeat(2, 1fr);gap:2rem}
+			.provinces-grid{grid-template-columns:repeat(2, 1fr);gap:2rem}
+		}
+		
+		/* Large Desktop (1440px and up) */
+		@media (min-width:1440px){
+			.hero{padding:4rem 1rem}
+			.quaid-pic{width:200px;height:200px}
+			section{padding:4rem 0}
+			.container{padding:0 2rem}
+			.info-grid{grid-template-columns:repeat(4, 1fr);gap:2.2rem}
+			.provinces-grid{grid-template-columns:repeat(3, 1fr);gap:2.5rem}
+		}
+		
+		/* Accessibility */
+		@media (prefers-reduced-motion: reduce){
+			*, *::before, *::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
 		}
 	</style>
 </head>
 <body>
 	<!-- Hero Section -->
 	<div class="hero">
-		<svg class="flag-svg" viewBox="0 0 36 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flag of Pakistan">
-			<rect width="36" height="24" fill="#01411C"/>
-			<rect width="9" height="24" x="0" y="0" fill="#fff"/>
-			<g transform="translate(17,12)">
-				<circle r="4.5" cx="0" cy="0" fill="#fff"/>
-				<circle r="3.4" cx="1.2" cy="0" fill="#01411C"/>
-			</g>
-			<g transform="translate(22.4,11.2) scale(0.9)" fill="#fff">
-				<polygon points="0,-2.6 0.75,-0.5 2.6,-0.5 1.15,0.4 1.6,2.5 0,1.1 -1.6,2.5 -1.15,0.4 -2.6,-0.5 -0.75,-0.5"/>
-			</g>
-		</svg>
 		<div class="hero-content">
-			<img class="quaid-pic" src="https://pid.gov.pk/pid_beta/admin/uploads/profile/1.jpg" alt="Quaid-e-Azam Muhammad Ali Jinnah">
+			<img class="quaid-pic" src="https://pid.gov.pk/pid_beta/admin/uploads/profile/1.jpg" alt="Quaid-e-Azam Muhammad Ali Jinnah" loading="lazy">
 			<h1 class="heading">Pakistan</h1>
 			<p class="tagline">🌙 Land of the Pure 🌙</p>
 			<div class="quick-facts">
@@ -113,19 +196,19 @@
 		<div class="info-grid">
 			<div class="info-card">
 				<strong>🏛️ Government</strong>
-				Federal Parliamentary System with bicameral legislature
+				<p>Federal Parliamentary System with bicameral legislature</p>
 			</div>
 			<div class="info-card">
 				<strong>💷 Currency</strong>
-				Pakistani Rupee (PKR)
+				<p>Pakistani Rupee (PKR)</p>
 			</div>
 			<div class="info-card">
 				<strong>🗣️ Languages</strong>
-				Urdu, English, Punjabi, Sindhi, Pashto
+				<p>Urdu, English, Punjabi, Sindhi, Pashto</p>
 			</div>
 			<div class="info-card">
 				<strong>📍 Bordering Countries</strong>
-				Afghanistan, Iran, China, India
+				<p>Afghanistan, Iran, China, India</p>
 			</div>
 		</div>
 	</section>
@@ -176,7 +259,7 @@
 			</div>
 			
 			<div class="province">
-				<h4>🏙️ Islamabad (Federal Capital Territory)</h4>
+				<h4>🏙️ Islamabad (Federal Capital)</h4>
 				<p><strong>Area:</strong> 906 km²</p>
 				<p><strong>Population:</strong> ~2.2 Million</p>
 				<p>Planned capital city built in 1960s, located between the Pothohar Plateau and Margalla Hills. Known for modern architecture and green spaces.</p>
@@ -271,7 +354,7 @@
 
 	<!-- Footer -->
 	<footer>
-		<p>&copy; 2024 Pakistan Information Portal | Created by Hanif_Khan</p>
+		<p>&copy; 2025 Pakistan Information Portal | Created by Hanif_Khan</p>
 		<p>🌙 Land of the Pure - Proud to be Pakistani 🌙</p>
 	</footer>
 </body>
