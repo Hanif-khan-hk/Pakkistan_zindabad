@@ -1,38 +1,1676 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<title>Pakistan</title>
-	<style>
-		:root{--green:#01411C}
-		html,body{height:100%;margin:0}
-		.flag-wrap{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--green)}
-		.flag-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-		.content{position:relative;z-index:2;color:#fff;font-family:Segoe UI, Roboto, Arial, sans-serif;font-size:10vw;font-weight:700;letter-spacing:0.05em;text-shadow:0 6px 18px rgba(0,0,0,0.45);text-align:center}
-		.credit{position:fixed;right:12px;bottom:12px;color:rgba(255,255,255,0.8);font-size:12px;z-index:3}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Encyclopedia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Poppins:wght@400;500;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #01411C;
+            --secondary: #2d7c4e;
+            --accent: #00d4ff;
+            --accent-2: #ffc107;
+            --text-dark: #1a1a1a;
+            --text-light: #f5f5f5;
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(1, 65, 28, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav.hide {
+            transform: translateY(-100%);
+        }
+
+        nav.show {
+            transform: translateY(0);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: var(--transition);
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ===== ANIMATED WAVING FLAG ===== */
+        .waving-flag {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .flag-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotateZ(-5deg); }
+            50% { transform: rotateZ(5deg); }
+        }
+
+        .flag-rect {
+            position: absolute;
+            height: 100%;
+            top: 0;
+        }
+
+        .flag-white {
+            width: 25%;
+            background: white;
+            left: 0;
+        }
+
+        .flag-green {
+            width: 75%;
+            background: var(--primary);
+            left: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .flag-crescent {
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .crescent-outer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .crescent-inner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            border-radius: 50%;
+            left: 8px;
+            top: 6px;
+        }
+
+        .star {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 2px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .flag-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.3), rgba(0, 212, 255, 0));
+            border-radius: 50%;
+            animation: pulse-glow 3s ease-in-out infinite;
+            filter: blur(15px);
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% { 
+                transform: scale(1.15);
+                opacity: 0.8;
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(1, 65, 28, 0.08) 0%, rgba(1, 65, 28, 0) 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, rgba(0, 212, 255, 0) 70%);
+            border-radius: 50%;
+            animation: float-reverse 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-family: 'Lora', serif;
+            font-style: italic;
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 6px 20px rgba(1, 65, 28, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(1, 65, 28, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slideInRight 0.8s ease-out;
+            position: relative;
+        }
+
+        .flag-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flag-display {
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== SECTION TRANSITIONS ===== */
+        section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header .divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            margin: 1rem auto;
+            border-radius: 2px;
+            animation: expandWidth 0.8s ease-out;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            line-height: 1.6;
+        }
+
+        /* ===== CARD LAYOUTS ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(1, 65, 28, 0.1), rgba(0, 212, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card-footer {
+            padding: 0 2rem 2rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+            color: var(--accent-2);
+        }
+
+        /* ===== HISTORY SECTION ===== */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: auto;
+            width: 48%;
+            text-align: right;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+            margin-right: 0;
+            width: 48%;
+            text-align: left;
+            padding-left: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            width: 28px;
+            height: 28px;
+            top: -4px;
+            background: var(--accent-2);
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            border-left: 3px solid var(--accent);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-left: none;
+            border-right: 3px solid var(--accent);
+        }
+
+        .timeline-content:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: scale(1.02);
+        }
+
+        .timeline-content h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .timeline-year {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ===== TWO COLUMN LAYOUT ===== */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .two-column h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .two-column p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .highlights-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .highlights-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            color: #666;
+            position: relative;
+            line-height: 1.6;
+            animation: slideInLeft 0.4s ease-out;
+        }
+
+        .highlights-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .image-showcase {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .image-showcase::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(1, 65, 28, 0.1));
+            z-index: 1;
+            border-radius: var(--border-radius);
+        }
+
+        .image-showcase svg,
+        .image-showcase img {
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 0;
+            transition: var(--transition);
+        }
+
+        .image-showcase:hover svg,
+        .image-showcase:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== PEOPLE CARDS ===== */
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .person-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .person-card:nth-child(1) { animation-delay: 0.1s; }
+        .person-card:nth-child(2) { animation-delay: 0.2s; }
+        .person-card:nth-child(3) { animation-delay: 0.3s; }
+        .person-card:nth-child(4) { animation-delay: 0.4s; }
+        .person-card:nth-child(5) { animation-delay: 0.5s; }
+        .person-card:nth-child(6) { animation-delay: 0.6s; }
+        .person-card:nth-child(7) { animation-delay: 0.7s; }
+        .person-card:nth-child(8) { animation-delay: 0.8s; }
+        .person-card:nth-child(9) { animation-delay: 0.9s; }
+
+        .person-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(1, 65, 28, 0.1), rgba(0, 212, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .person-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .person-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .person-card:hover .person-image::after {
+            opacity: 1;
+        }
+
+        .person-info {
+            padding: 2rem;
+        }
+
+        .person-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .person-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .person-bio {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            padding: 4rem 2rem 2rem;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: 100%;
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                border-left: 3px solid var(--accent);
+                border-right: none;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                justify-content: space-between;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(1, 65, 28, 0.99);
+                padding: 1.5rem;
+                gap: 0;
+                width: 100%;
+                border-top: 1px solid rgba(0, 212, 255, 0.2);
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav.open .hamburger span:nth-child(1) {
+                transform: rotate(45deg) translate(10px, 10px);
+            }
+
+            nav.open .hamburger span:nth-child(2) {
+                opacity: 0;
+            }
+
+            nav.open .hamburger span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .hero {
+                margin-top: 70px;
+                min-height: auto;
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                gap: 0.8rem;
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .waving-flag {
+                width: 100px;
+                height: 100px;
+            }
+
+            .content-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-dot {
+                left: 15px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .two-column h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                top: 65px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 1.5rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .section-header p {
+                font-size: 0.95rem;
+            }
+
+            .card h3 {
+                font-size: 1.2rem;
+            }
+
+            .card p {
+                font-size: 0.9rem;
+            }
+
+            .two-column h3 {
+                font-size: 1.5rem;
+            }
+
+            .person-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+
+            .waving-flag {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
 </head>
 <body>
-	<div class="flag-wrap">
-		<svg class="flag-svg" viewBox="0 0 36 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flag of Pakistan">
-			<!-- green field -->
-			<rect width="36" height="24" fill="#01411C"/>
-			<!-- white vertical stripe (hoist) about 1/4 -->
-			<rect width="9" height="24" x="0" y="0" fill="#fff"/>
-			<!-- crescent: white circle minus overlapping green circle -->
-			<g transform="translate(17,12)">
-				<circle r="4.5" cx="0" cy="0" fill="#fff"/>
-				<circle r="3.4" cx="1.2" cy="0" fill="#01411C"/>
-			</g>
-			<!-- star: 5-point star to the right of crescent -->
-			<g transform="translate(22.4,11.2) scale(0.9)" fill="#fff">
-				<polygon points="0,-2.6 0.75,-0.5 2.6,-0.5 1.15,0.4 1.6,2.5 0,1.1 -1.6,2.5 -1.15,0.4 -2.6,-0.5 -0.75,-0.5"/>
-			</g>
-		</svg>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="logo">Pakistan Encyclopedia</div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#history" class="nav-link">History</a></li>
+            <li><a href="#culture" class="nav-link">Culture</a></li>
+            <li><a href="#geography" class="nav-link">Geography</a></li>
+            <li><a href="#people" class="nav-link">Famous People</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
 
-		<div class="content">Pakistan</div>
-		<div class="credit">Hanif_Khan</div>
-	</div>
+    <!-- HOME SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Discover Pakistan</h1>
+                <p class="subtitle">Land of the Pure</p>
+                <p>Explore the rich history, vibrant culture, diverse geography, and inspiring people of Pakistan. From ancient civilizations to modern achievements, discover what makes this nation truly remarkable.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('history')">Explore History</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('culture')">Learn Culture</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="flag-wrapper">
+                    <div class="flag-glow"></div>
+                    <div class="flag-display">
+                        <div class="waving-flag">
+                            <div class="flag-container">
+                                <div class="flag-rect flag-white"></div>
+                                <div class="flag-rect flag-green">
+                                    <div class="flag-crescent">
+                                        <div class="crescent-outer"></div>
+                                        <div class="crescent-inner"></div>
+                                        <div class="star">★</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORY SECTION -->
+    <section class="content-section" id="history">
+        <div class="section-header">
+            <h2>History of Pakistan</h2>
+            <div class="divider"></div>
+            <p>From ancient empires to independence and beyond</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2300 - 1300 BCE</div>
+                    <h4>Indus Valley Civilization</h4>
+                    <p>One of the world's earliest urban civilizations flourished in the Indus Valley, with advanced city planning and trade networks.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1000 - 600 BCE</div>
+                    <h4>Vedic & Persian Periods</h4>
+                    <p>Rise of Vedic kingdoms and Persian dominion, with notable figures like Buddha and Mahavira during this transformative era.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">500 - 323 BCE</div>
+                    <h4>Mauryan Empire</h4>
+                    <p>Under Emperor Ashoka, the Mauryan Empire brought unprecedented unity and prosperity to the region.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">712 CE</div>
+                    <h4>Islamic Period Begins</h4>
+                    <p>Muhammad bin Qasim's conquest marked the beginning of Islamic influence and centuries of cultural synthesis.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1526 - 1857</div>
+                    <h4>Mughal Empire</h4>
+                    <p>The magnificent Mughal dynasty ruled for centuries, leaving an incredible architectural and cultural legacy.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1857 - 1947</div>
+                    <h4>British Colonial Period</h4>
+                    <p>British Raj transformed the region through infrastructure development while independence movements emerged.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">14 August 1947</div>
+                    <h4>Independence</h4>
+                    <p>Pakistan emerged as an independent nation with Muhammad Ali Jinnah as the Father of the Nation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CULTURE SECTION -->
+    <section class="content-section" id="culture">
+        <div class="section-header">
+            <h2>Vibrant Culture</h2>
+            <div class="divider"></div>
+            <p>Experience the rich tapestry of traditions and celebrations</p>
+        </div>
+
+        <div class="two-column" style="margin-bottom: 4rem;">
+            <div>
+                <h3>Traditional Arts & Crafts</h3>
+                <p>Pakistan's artistic heritage is renowned worldwide. From intricate carpet weaving and pottery to exquisite calligraphy, each craft tells a story of centuries-old traditions.</p>
+                <ul class="highlights-list">
+                    <li>Carpet Weaving - Baloch and Afghan styles</li>
+                    <li>Pottery - Hand-crafted ceramics</li>
+                    <li>Truck Art - Colorful vehicles</li>
+                    <li>Calligraphy - Islamic art</li>
+                    <li>Embroidery - Mirror work</li>
+                </ul>
+            </div>
+            <div class="image-showcase">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="cultureGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#01411C;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="400" height="400" fill="url(#cultureGrad)" opacity="0.05"/>
+                    <circle cx="200" cy="100" r="40" fill="url(#cultureGrad)" opacity="0.2"/>
+                    <circle cx="100" cy="250" r="50" fill="url(#cultureGrad)" opacity="0.15"/>
+                    <circle cx="300" cy="280" r="45" fill="url(#cultureGrad)" opacity="0.2"/>
+                    <text x="200" y="320" font-size="28" text-anchor="middle" fill="url(#cultureGrad)" font-weight="600">Arts & Heritage</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image">🎭</div>
+                <div class="card-content">
+                    <h3>Music & Dance</h3>
+                    <p>Pakistani music blends Islamic, Persian, Indian influences creating unique expressions.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🍲</div>
+                <div class="card-content">
+                    <h3>Cuisine</h3>
+                    <p>Pakistani cuisine celebrates flavors with aromatic biryani, fiery karahi, and tandoori delicacies.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🎪</div>
+                <div class="card-content">
+                    <h3>Festivals</h3>
+                    <p>Eid, Iqbal Day, and Independence Day bring communities together in celebrations.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">👗</div>
+                <div class="card-content">
+                    <h3>Traditional Clothing</h3>
+                    <p>Shalwar kameez and lehenga showcase exquisite embroidery and regional designs.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🕌</div>
+                <div class="card-content">
+                    <h3>Architecture</h3>
+                    <p>Magnificent mosques and forts blend Islamic and Mughal architectural styles.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">📚</div>
+                <div class="card-content">
+                    <h3>Literature</h3>
+                    <p>Pakistan's literary tradition includes luminaries like Iqbal and contemporary voices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GEOGRAPHY SECTION -->
+    <section class="content-section" id="geography">
+        <div class="section-header">
+            <h2>Diverse Geography</h2>
+            <div class="divider"></div>
+            <p>From the Himalayas to the Arabian Sea</p>
+        </div>
+
+        <div class="two-column" style="margin-bottom: 4rem;">
+            <div class="image-showcase">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="geoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2d7c4e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="400" height="400" fill="url(#geoGrad)" opacity="0.05"/>
+                    <polygon points="200,80 280,200 200,320 120,200" fill="url(#geoGrad)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="30" fill="url(#geoGrad)" opacity="0.15"/>
+                    <rect x="80" y="250" width="240" height="80" fill="url(#geoGrad)" opacity="0.1"/>
+                    <text x="200" y="300" font-size="28" text-anchor="middle" fill="url(#geoGrad)" font-weight="600">Mountains & Valleys</text>
+                </svg>
+            </div>
+            <div>
+                <h3>Physical Features & Regions</h3>
+                <p>Pakistan's geography features the world's highest peaks, fertile plains, vast deserts, and extensive coastlines.</p>
+                <ul class="highlights-list">
+                    <li>Northern Mountains - Karakoram, Himalayas</li>
+                    <li>Indus Valley - Fertile plains</li>
+                    <li>Balochistan Plateau - Unique terrain</li>
+                    <li>Thar Desert - Golden sands</li>
+                    <li>Sindh & Punjab - Agricultural heartlands</li>
+                    <li>Arabian Coast - Beautiful beaches</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image">⛰️</div>
+                <div class="card-content">
+                    <h3>Karakoram Range</h3>
+                    <p>Home to K2 and dozens of peaks over 7,000 meters.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🌊</div>
+                <div class="card-content">
+                    <h3>Arabian Sea Coast</h3>
+                    <p>Over 1,000 km of coastline with vibrant marine life.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">💧</div>
+                <div class="card-content">
+                    <h3>Indus River System</h3>
+                    <p>The backbone of agriculture and civilization.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🌴</div>
+                <div class="card-content">
+                    <h3>Thar Desert</h3>
+                    <p>One of Asia's largest deserts with unique ecosystem.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🌲</div>
+                <div class="card-content">
+                    <h3>Northern Forests</h3>
+                    <p>Habitat for snow leopards, ibex, and bears.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏞️</div>
+                <div class="card-content">
+                    <h3>Alpine Lakes</h3>
+                    <p>Crystal-clear lakes nestled among peaks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAMOUS PEOPLE SECTION -->
+    <section class="content-section" id="people">
+        <div class="section-header">
+            <h2>Famous People of Pakistan</h2>
+            <div class="divider"></div>
+            <p>Visionaries and achievers who shaped the nation</p>
+        </div>
+
+        <div class="people-grid">
+            <div class="person-card">
+                <div class="person-image">🎖️</div>
+                <div class="person-info">
+                    <div class="person-name">Muhammad Ali Jinnah</div>
+                    <div class="person-title">Father of the Nation (1876-1948)</div>
+                    <p class="person-bio">Founder and first Governor-General of Pakistan.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">🏛️</div>
+                <div class="person-info">
+                    <div class="person-name">Dr. Muhammad Iqbal</div>
+                    <div class="person-title">Poet & Philosopher (1877-1938)</div>
+                    <p class="person-bio">Poet whose verses inspired the independence movement.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">🎓</div>
+                <div class="person-info">
+                    <div class="person-name">Fatima Jinnah</div>
+                    <div class="person-title">Political Leader (1893-1967)</div>
+                    <p class="person-bio">Championed education and women's rights.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">📺</div>
+                <div class="person-info">
+                    <div class="person-name">Malala Yousafzai</div>
+                    <div class="person-title">Nobel Laureate (b. 1997)</div>
+                    <p class="person-bio">Youngest Nobel Peace Prize winner.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">🎬</div>
+                <div class="person-info">
+                    <div class="person-name">Noor Jehan</div>
+                    <div class="person-title">Singer & Actress (1926-2000)</div>
+                    <p class="person-bio">Nightingale of Asia, iconic singer.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">⚽</div>
+                <div class="person-info">
+                    <div class="person-name">Wasim Akram</div>
+                    <div class="person-title">Cricket Legend (b. 1966)</div>
+                    <p class="person-bio">One of cricket's greatest bowlers.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">🏆</div>
+                <div class="person-info">
+                    <div class="person-name">Imran Khan</div>
+                    <div class="person-title">Cricket & Politics (b. 1952)</div>
+                    <p class="person-bio">World Cup winner and former Prime Minister.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">🔬</div>
+                <div class="person-info">
+                    <div class="person-name">Dr. Abdus Salam</div>
+                    <div class="person-title">Nobel Physicist (1926-1996)</div>
+                    <p class="person-bio">Pakistan's first Nobel laureate in Physics.</p>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="person-image">✍️</div>
+                <div class="person-info">
+                    <div class="person-name">Saadat Hasan Manto</div>
+                    <div class="person-title">Writer & Playwright (1912-1955)</div>
+                    <p class="person-bio">Master of Urdu short stories.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Pakistan</h4>
+                <p>Pakistan is a vibrant nation with rich history and diverse culture. Home to over 230 million people.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#history">History</a></li>
+                    <li><a href="#culture">Culture</a></li>
+                    <li><a href="#geography">Geography</a></li>
+                    <li><a href="#people">Famous People</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Learn More</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Government</a></li>
+                    <li><a href="#">Tourism</a></li>
+                    <li><a href="#">Economy</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Pakistan Encyclopedia. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    closeMenu();
+                }
+            });
+        });
+
+        // Smart navbar hide/show on scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.scrollY || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                navbar.classList.add('hide');
+                navbar.classList.remove('show');
+            } else {
+                navbar.classList.remove('hide');
+                navbar.classList.add('show');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            updateActiveNavLink();
+        });
+
+        // Update active navbar link
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+            navbar.classList.toggle('open');
+        });
+
+        function closeMenu() {
+            navMenu.classList.remove('open');
+            navbar.classList.remove('open');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
 </body>
 </html>
